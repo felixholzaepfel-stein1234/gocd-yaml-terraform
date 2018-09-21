@@ -23,7 +23,7 @@ pipelines:
                   - "echo \"${SOME_VARIABLE}\""
   yamlpipeline2: # definition of yaml-example pipeline
     group: pipeline_group_yaml
-    label_template: "${mygit[:8]}"
+    label_template: "${upstream}"
     locking: off
     materials:
       upstream:
