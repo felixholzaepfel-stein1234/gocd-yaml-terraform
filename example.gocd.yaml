@@ -3,7 +3,8 @@ environments:
     environment_variables:
       SOME_VARIABLE: I'm some variable!
     pipelines:
-    - yaml-example
+    - yamlpipeline1
+    - yamlpipeline2
 pipelines:
   yamlpipeline1:
     group: pipeline_group_yaml
