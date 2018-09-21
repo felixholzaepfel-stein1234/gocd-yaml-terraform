@@ -19,7 +19,7 @@ pipelines:
             - exec: # indicates type of task
                 command: /bin/sh
                 arguments:
-                  - "echo "${SOME_VARIABLE}""
+                  - "echo \"${SOME_VARIABLE}\""
   yamlpipeline2: # definition of yaml-example pipeline
     group: pipeline_group_yaml
     label_template: "${mygit[:8]}"
@@ -40,4 +40,4 @@ pipelines:
                 command: /bin/sh
                 arguments:
                 - "-c"
-                - "echo \"My dependency has the label $${GO_DEPENDENCY_LABEL_yamlpipeline1_DEPENDENCY}\""
+                - "echo \"My dependency has the label ${GO_DEPENDENCY_LABEL_yamlpipeline1_DEPENDENCY}\""
