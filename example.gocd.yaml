@@ -1,0 +1,43 @@
+environments:
+  pipeline_group_yaml:
+    environment_variables:
+      SOME_VARIABLE: I'm some variable!
+    pipelines:
+    - yaml-example
+pipelines:
+  yamlpipeline1:
+    group: pipeline_group_yaml
+    materials:
+      rbenv_git_repository:  # this is the name of material
+        # says about type of material and url at once
+        git: https://github.com/rbenv/rbenv
+    stages:
+    - build: # name of stage
+        jobs:
+          build: # name of the job
+            tasks:
+            - exec: # indicates type of task
+                command: /bin/sh
+                arguments:
+                  - "echo "${SOME_VARIABLE}""
+  yamlpipeline2: # definition of yaml-example pipeline
+    group: pipeline_group_yaml
+    label_template: "${mygit[:8]}"
+    locking: off
+    materials:
+      upstream:
+        # type is optional here, material type is implied based on presence of pipeline and stage fields
+        # type: dependency
+        pipeline: yamlpipeline1
+        stage: build
+    stages: # list of stages in order
+    - build: # name of stage
+        clean_workspace: true
+        jobs:
+          firstjob: # name of the job
+            tasks: # ordered list of tasks to execute in job csharp
+            - exec: # indicates type of task
+                command: /bin/sh
+                arguments:
+                - "-c"
+                - "echo \"My dependency has the label $${GO_DEPENDENCY_LABEL_yamlpipeline1_DEPENDENCY}\""
